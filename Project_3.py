@@ -43,11 +43,7 @@ def move_left(node, coordinate, frontier, explored):
         child_grid = deepcopy(node.grid)
         child_grid[i][j], child_grid[i][j-1] = child_grid[i][j-1], child_grid[i][j]
         if check_grid(child_grid, frontier, explored):
-            child = Node(node, child_grid)
-            child.gn = child.parent.gn + 1
-            child.hn = heuristic(child.grid)
-            child.fn = child.gn + child.hn
-            frontier.append(child)
+            add_to_frontier(node, child_grid, frontier)
 
 def move_right(node, coordinate, frontier, explored):
     i, j = coordinate[0], coordinate[1]
@@ -57,11 +53,7 @@ def move_right(node, coordinate, frontier, explored):
         child_grid = deepcopy(node.grid)
         child_grid[i][j], child_grid[i][j+1] = child_grid[i][j+1], child_grid[i][j]
         if check_grid(child_grid, frontier, explored):
-            child = Node(node, child_grid)
-            child.gn = child.parent.gn + 1
-            child.hn = heuristic(child.grid)
-            child.fn = child.gn + child.hn
-            frontier.append(child)
+            add_to_frontier(node, child_grid, frontier)
 
 def move_up(node, coordinate, frontier, explored):
     i, j = coordinate[0], coordinate[1]
@@ -71,11 +63,7 @@ def move_up(node, coordinate, frontier, explored):
         child_grid = deepcopy(node.grid)
         child_grid[i][j], child_grid[i-1][j] = child_grid[i-1][j], child_grid[i][j]
         if check_grid(child_grid, frontier, explored):
-            child = Node(node, child_grid)
-            child.gn = child.parent.gn + 1
-            child.hn = heuristic(child.grid)
-            child.fn = child.gn + child.hn
-            frontier.append(child)
+            add_to_frontier(node, child_grid, frontier)
 
 def move_down(node, coordinate, frontier, explored):
     i, j = coordinate[0], coordinate[1]
@@ -85,11 +73,14 @@ def move_down(node, coordinate, frontier, explored):
         child_grid = deepcopy(node.grid)
         child_grid[i][j], child_grid[i+1][j] = child_grid[i+1][j], child_grid[i][j]
         if check_grid(child_grid, frontier, explored):
-            child = Node(node, child_grid)
-            child.gn = child.parent.gn + 1
-            child.hn = heuristic(child.grid)
-            child.fn = child.gn + child.hn
-            frontier.append(child)
+            add_to_frontier(node, child_grid, frontier)
+
+def add_to_frontier(node, child_grid, frontier):
+    child = Node(node, child_grid)
+    child.gn = child.parent.gn + 1
+    child.hn = heuristic(child.grid)
+    child.fn = child.gn + child.hn
+    frontier.append(child)
 
 def expand(node, frontier, explored):
     first_0 = [None, None]
