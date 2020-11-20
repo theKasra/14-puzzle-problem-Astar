@@ -1,2 +1,2 @@
-# 14-puzzle-problem-Astar
-AI: 3rd project - Fall 2020
+# 14 Puzzle Problem A*
+Same problem, different approach.
