@@ -146,25 +146,24 @@ def heuristic(grid):
             h2 += (abs(i - gridxy[0]) + abs(j - gridxy[1]))
     return h2
 
-def print_answer(initial_grid, node):
+def print_answer(node):
     solution = []
     move_count = 0
-    while node.parent:
+    while node:
         solution.insert(0, node.grid)
         node = node.parent
     print("\nStep by step solution:\n")
-    print(np.matrix(initial_grid), "\n")
     for i in solution:
         print(np.matrix(i))
         move_count+=1
         print("\n")
     print("moves: ", move_count)
 
-def A_star(frontier, explored, initial_grid):
+def A_star(frontier, explored):
     while frontier:
         node = find_best_in_frontier(frontier)
         if(goaltest(node.grid)):
-            print_answer(initial_grid, node)
+            print_answer(node)
             break
         else:
             explored.append(node.grid)
@@ -199,7 +198,7 @@ explored = []
 
 start_time = time.time()
 
-A_star(frontier, explored, grid)
+A_star(frontier, explored)
 
 print("frontier: ", len(frontier))
 print("explored: ", len(explored))
